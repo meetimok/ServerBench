@@ -104,10 +104,10 @@ if  [ -e '/usr/bin/wget' ]; then
     echo "Average I/O speed    : $ioavg MB/s"
     next
 
-    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "Node name" "IPv4 address" "Down. speed"
+    printf "%-41s %16s %11s\e[0m\n" "Node name" "IPv4 address" "Down. speed"
     speed && next
     if [[ "$ipv6" != "" ]]; then
-        printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "Node name" "IPv6 address" "Down. speed"
+        printf "%-41s %16s %11s\e[0m\n" "Node name" "IPv6 address" "Down. speed"
         speed_v6 && next
     fi
 else
