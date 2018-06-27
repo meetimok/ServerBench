@@ -13,14 +13,14 @@ speed_test() {
     speedtest=$(wget -4O /dev/null -T300 $1 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}')
     ipaddress=$(ping -c1 -n `awk -F'/' '{print $3}' <<< $1` | awk -F'[()]' '{print $2;exit}')
     nodeName=$2
-    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
+    printf "\e[33m%-41s \e[32m%-16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
 }
 
 speed_test_v6() {
     speedtest=$(wget -6O /dev/null -T300 $1 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}')
     ipaddress=$(ping6 -c1 -n `awk -F'/' '{print $3}' <<< $1` | awk -F'[()]' '{print $2;exit}')
     nodeName=$2
-    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
+    printf "\e[33m%-41s \e[32m%-16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
 }
 
 speed() {
@@ -64,7 +64,7 @@ if  [ -e '/usr/bin/wget' ]; then
     freq=$( awk -F: '/cpu MHz/ {freq=$2} END {print freq}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
     tram=$( free -m | awk '/Mem/ {print $2}' )
     swap=$( free -m | awk '/Swap/ {print $2}' )
-    up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%ddays, %d:%d:%d\n",a,b,c,d)}' /proc/uptime )
+    up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%d days, %d:%d:%d\n",a,b,c,d)}' /proc/uptime )
     load=$( w | head -1 | awk -F'load average:' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//' )
     opsy=$( get_opsy )
     arch=$( uname -m )
@@ -104,10 +104,10 @@ if  [ -e '/usr/bin/wget' ]; then
     echo "Average I/O speed    : $ioavg MB/s"
     next
 
-    printf "%-41s %16s %11s\e[0m\n" "Node name" "IPv4 address" "Down. speed"
+    printf "%-41s %16s %-11s\e[0m\n" "Node name" "IPv4 address" "Down. speed"
     speed && next
     if [[ "$ipv6" != "" ]]; then
-        printf "%-41s %16s %11s\e[0m\n" "Node name" "IPv6 address" "Down. speed"
+        printf "%-41s %16s %-11s\e[0m\n" "Node name" "IPv6 address" "Down. speed"
         speed_v6 && next
     fi
 else
