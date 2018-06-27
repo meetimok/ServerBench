@@ -17,7 +17,7 @@ speed_test() {
         echo -e "\e[33m$2\e[0m\t\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
     elif [ "${#nodeName}" -lt "16" ]; then
         echo -e "\e[33m$2\e[0m\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "24" ]; then
+    elif [ "${#nodeName}" -lt "22" ]; then
         echo -e "\e[33m$2\e[0m\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
     elif [ "${#nodeName}" -lt "28" ]; then
         echo -e "\e[33m$2\e[0m\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
@@ -31,13 +31,15 @@ speed_test_v6() {
     ipaddress=$(ping6 -c1 -n `awk -F'/' '{print $3}' <<< $1` | awk -F'[()]' '{print $2;exit}')
     nodeName=$2
     if   [ "${#nodeName}" -lt "8" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\t\e[32m$ipaddress\e[0m\t\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "13" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\e[32m$ipaddress\e[0m\t\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "24" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\e[32m$ipaddress\e[0m\t\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "24" -a "${#ipaddress}" -gt "13" ]; then
+        echo -e "\e[33m$2\e[0m\t\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
+    elif [ "${#nodeName}" -lt "16" -a "${#ipaddress}" -eq "13" ]; then
+        echo -e "\e[33m$2\e[0m\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
+    elif [ "${#nodeName}" -lt "22" -a "${#ipaddress}" -eq "13" ]; then
+        echo -e "\e[33m$2\e[0m\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
+    elif [ "${#nodeName}" -lt "28" -a "${#ipaddress}" -gt "13" ]; then
         echo -e "\e[33m$2\e[0m\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
+    elif [ "${#nodeName}" -ge "28" -a "${#ipaddress}" -gt "13" ]; then
+        echo -e "\e[33m$2\e[0m\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
     fi
 }
 
@@ -48,31 +50,28 @@ speed() {
     speed_test 'http://ny.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Buffalo, US'
     speed_test 'http://dal.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Dallas, US'
     speed_test 'http://la.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Los Angeles, US'
+    speed_test 'http://la.lg.cloudc.one/100MB.test' 'Cloudcone (Multacom), Los Angeles, US'
     speed_test 'http://mirror.incero.com/100mb.test' 'Incero, Dallas, US'
     speed_test 'http://speedtest-nyc1.digitalocean.com/100mb.test' 'DO 1, NYC, US'
     speed_test 'http://speedtest-nyc2.digitalocean.com/100mb.test' 'DO 2, NYC, US'
     speed_test 'http://speedtest-nyc3.digitalocean.com/100mb.test' 'DO 3, NYC, US'
     speed_test 'https://fl-us-ping.vultr.com/vultr.com.100MB.bin' 'Vultr, Miami, US'
-    speed_test 'https://wa-us-ping.vultr.com/vultr.com.100MB.bin' 'Vultr, Washington, US'
     speed_test 'http://speedtest-sfo2.digitalocean.com/100mb.test' 'DO, San Francisco, US'
     speed_test 'http://speedtest-sfo1.digitalocean.com/100mb.test' 'DO, San Francisco, US'
     speed_test 'http://bhs.proof.ovh.net/files/100Mb.dat' 'OVH, Beauharnois, CA'
     speed_test 'http://lookingglass.netcup.net/100MB.test' 'Netcup, Nuremberg, DE'
     speed_test 'http://rbx.proof.ovh.net/files/100Mb.dat' 'OVH, Roubaix, FR'
-    speed_test 'http://ping.online.net/100Mo.dat' 'Online.Net, Paris, FR'
+    speed_test 'http://ping.online.net/100Mo.dat' 'Online.net, Paris, FR'
     speed_test 'http://speedtest.mex01.softlayer.com/downloads/test100.zip' 'Softlayer, Mexico, MX'
     speed_test 'http://speedtest.sao01.softlayer.com/downloads/test100.zip' 'Softlayer, Brazil, BR'
 }
 
 speed_v6() {
-    speed_test_v6 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin' 'Linode, Atlanta, GA'
-    speed_test_v6 'http://speedtest.dallas.linode.com/100MB-dallas.bin' 'Linode, Dallas, TX'
-    speed_test_v6 'http://speedtest.newark.linode.com/100MB-newark.bin' 'Linode, Newark, NJ'
+    speed_test_v6 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin' 'Linode, Atlanta, US'
+    speed_test_v6 'http://speedtest.dallas.linode.com/100MB-dallas.bin' 'Linode, Dallas, US'
     speed_test_v6 'http://speedtest.singapore.linode.com/100MB-singapore.bin' 'Linode, Singapore, SG'
     speed_test_v6 'http://speedtest.tokyo.linode.com/100MB-tokyo.bin' 'Linode, Tokyo, JP'
     speed_test_v6 'http://speedtest.par01.softlayer.com/downloads/test100.zip' 'Softlayer, Paris, FR'
-    speed_test_v6 'http://speedtest.sng01.softlayer.com/downloads/test100.zip' 'Softlayer, Singapore, SG'
-    speed_test_v6 'http://speedtest.tok02.softlayer.com/downloads/test100.zip' 'Softlayer, Tokyo, JP'
 }
 
 io_test() {
@@ -128,7 +127,7 @@ if  [ -e '/usr/bin/wget' ]; then
     echo -e "Node name\t\t\t\tIPv4 address\tDownload speed"
     speed && next
     if [[ "$ipv6" != "" ]]; then
-        echo -e "Node name\t\t\tIPv6 address\t\tDownload speed"
+        echo -e "Node name\t\t\t\tIPv6 address\tDownload speed"
         speed_v6 && next
     fi
 else
