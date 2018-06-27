@@ -13,34 +13,14 @@ speed_test() {
     speedtest=$(wget -4O /dev/null -T300 $1 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}')
     ipaddress=$(ping -c1 -n `awk -F'/' '{print $3}' <<< $1` | awk -F'[()]' '{print $2;exit}')
     nodeName=$2
-    if   [ "${#nodeName}" -lt "8" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "16" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "22" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "28" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -ge "28" ]; then
-        echo -e "\e[33m$2\e[0m\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    fi
+    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
 }
 
 speed_test_v6() {
     speedtest=$(wget -6O /dev/null -T300 $1 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}')
     ipaddress=$(ping6 -c1 -n `awk -F'/' '{print $3}' <<< $1` | awk -F'[()]' '{print $2;exit}')
     nodeName=$2
-    if   [ "${#nodeName}" -lt "8" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "16" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "22" -a "${#ipaddress}" -eq "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -lt "28" -a "${#ipaddress}" -gt "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    elif [ "${#nodeName}" -ge "28" -a "${#ipaddress}" -gt "13" ]; then
-        echo -e "\e[33m$2\e[0m\t\e[32m$ipaddress\e[0m\t\e[31m$speedtest\e[0m"
-    fi
+    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "$2" $ipaddress $speedtest
 }
 
 speed() {
@@ -124,10 +104,10 @@ if  [ -e '/usr/bin/wget' ]; then
     echo "Average I/O speed    : $ioavg MB/s"
     next
 
-    echo -e "Node name\t\t\t\tIPv4 address\tDownload speed"
+    printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "Node name" "IPv4 address" "Down. speed"
     speed && next
     if [[ "$ipv6" != "" ]]; then
-        echo -e "Node name\t\t\t\tIPv6 address\tDownload speed"
+        printf "\e[33m%-41s \e[32m%16s \e[31m%11s\e[0m\n" "Node name" "IPv6 address" "Down. speed"
         speed_v6 && next
     fi
 else
