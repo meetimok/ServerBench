@@ -26,7 +26,6 @@ speed_test_v6() {
 speed() {
     speed_test 'http://cachefly.cachefly.net/100mb.test' 'CacheFly'
     speed_test 'http://la-lg.v4.gomach5.com/100MB.test' 'Go Mach 5 (Psychz), Los Angeles, US'
-    speed_test 'http://lg.chi2-c.fdcservers.net/100MBtest.zip' 'FDC Servers, Chicago, US'
     speed_test 'http://ny.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Buffalo, US'
     speed_test 'http://dal.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Dallas, US'
     speed_test 'http://la.lg.virmach.com/100MB.test' 'Virmach (ColoCrossing), Los Angeles, US'
@@ -38,6 +37,7 @@ speed() {
     speed_test 'https://fl-us-ping.vultr.com/vultr.com.100MB.bin' 'Vultr, Miami, US'
     speed_test 'http://speedtest-sfo2.digitalocean.com/100mb.test' 'DO, San Francisco, US'
     speed_test 'http://speedtest-sfo1.digitalocean.com/100mb.test' 'DO, San Francisco, US'
+    speed_test 'http://lg.chi2-c.fdcservers.net/100MBtest.zip' 'FDC Servers, Chicago, US'
     speed_test 'http://bhs.proof.ovh.net/files/100Mb.dat' 'OVH, Beauharnois, CA'
     speed_test 'http://lookingglass.netcup.net/100MB.test' 'Netcup, Nuremberg, DE'
     speed_test 'http://rbx.proof.ovh.net/files/100Mb.dat' 'OVH, Roubaix, FR'
