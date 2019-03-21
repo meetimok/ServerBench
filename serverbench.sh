@@ -34,6 +34,7 @@ speed() {
     speed_test 'http://la-lg.v4.gomach5.com/100MB.test' 'Go Mach 5 (Psychz), LA, US'
     speed_test 'http://lg.lax.hosthatch.com/100MB.test' 'HostHatch (Telecom Center), LA, US'
     speed_test 'http://lg.ny.hosthatch.com/100mb.bin' 'HostHatch (Equinix NY2), NYC, US'
+    speed_test 'http://lg.clt.quickpacket.com/static/100MB.test' 'QuickPacket (Charlotte), NC, US'
     speed_test 'http://speedtest-nyc1.digitalocean.com/100mb.test' 'DO 1, NYC, US'
     speed_test 'http://speedtest-nyc2.digitalocean.com/100mb.test' 'DO 2, NYC, US'
     speed_test 'http://speedtest-nyc3.digitalocean.com/100mb.test' 'DO 3, NYC, US'
@@ -48,6 +49,7 @@ speed() {
 speed_v6() {
     speed_test_v6 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin' 'Linode, Atlanta, US'
     speed_test_v6 'http://speedtest.dallas.linode.com/100MB-dallas.bin' 'Linode, Dallas, US'
+    speed_test_v6 'http://lg.clt.quickpacket.com/static/100MB.test' 'QuickPacket (Charlotte), NC, US'
     speed_test_v6 'http://speedtest.singapore.linode.com/100MB-singapore.bin' 'Linode, Singapore, SG'
     speed_test_v6 'http://speedtest.tokyo.linode.com/100MB-tokyo.bin' 'Linode, Tokyo, JP'
     speed_test_v6 'http://speedtest.par01.softlayer.com/downloads/test100.zip' 'Softlayer, Paris, FR'
